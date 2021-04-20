@@ -1,4 +1,56 @@
-# 4/15/2021 @ 7:22 am
+import point, line, triangle
+
+p1 = point.Point(1, 1)
+p2 = point.Point(4, 0)
+p3 = point.Point(2, 2)
+print(p1, p2, p3)
+print(p2.getX(), p3.getY())
+print(p1.distance(p2))
+print(p1.slope(p3))
+print(p2.direction(p3))
+print()
+
+L1 = line.Line(1, 0)
+L2 = line.Line(-1, 0)
+L3 = line.Line(3, -9)
+L4 = line.Line(3, 6)
+print(L1)
+print(L3)
+print(L1.getY(2), L2.getY(-3), L3.getY(4), L4.getY(-5))
+print(L1.isParallel(L2), L1.isPerp(L2))
+print(L3.isParallel(L4), L3.isPerp(L4))
+print(L3.equation(12))
+L5 = line.Line(4, 8)
+L6 = line.Line(-4, -4)
+print(L5.intAt(L6))
+print()
+
+T1 = triangle.Triangle(p1, p2, p3)
+print(T1)
+print(T1.perimeter())
+print(T1. area())
+p4 = point.Point(3, 3)
+p5 = point.Point(6, 2)
+p6 = point.Point(4, 4)
+p7 = point.Point(1, 3)
+p8 = point.Point(1, 7)
+p9 = point.Point(5, 11)
+T2 = triangle.Triangle(p4, p5, p6)
+T3 = triangle.Triangle(p7, p8, p9)
+print(T1.isCongruent(T2))
+print(T1.isCongruent(T3))
+p10 = point.Point(3, 2)
+print(T1.contains(p10))
+p11 = point.Point(2, 1)
+print(T1.contains(p11))
+p12 = point.Point(-3, 4)
+p13 = point.Point(6, -9)
+p14 = point.Point(0, 12)
+T4 = triangle.Triangle(p12, p13, p14)
+T5 = T4.slide(2, -1)
+print(T5)
+
+# 4/20/2021 @ 8:13 am
 
 import point, line, triangle
 import operator as op
@@ -106,6 +158,9 @@ class UnitTest():
                 expected_value = case[1]
                 arg_str = build_arg_str(arg, unit.is_polyadic)
                 test_file.write("Argument(s): " + arg_str + "  ")
+                # Now flush the contents of the write buffer so that if a function hangs,
+                # the report will show precisely where it happened.
+                test_file.flush()
                 try:
                     if unit.is_polyadic:
                         actual_value = unit.func(*arg)
@@ -144,8 +199,9 @@ class UnitTest():
                 if pts_lost > 0:
                     test_file.write("\nFunction \"" + name + "\", points lost " + str(pts_lost) + ".")
         else:
-            test_file.write("\nPerfection!")
-        test_file.write("\nFinal Score: " + str(self.score) + "/" + str(self.num_tests))
+            test_file.write(" Perfection!")
+        test_file.write("\n\nFinal Score: " + str(self.score) + "/" + str(self.num_tests))
+
 
 # Method List
 # Point: getX, getY, distance, slope, direction
